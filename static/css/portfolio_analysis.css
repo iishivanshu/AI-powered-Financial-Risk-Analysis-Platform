@@ -1,0 +1,30 @@
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+::-webkit-scrollbar-track {
+    background: #0e0e0e;
+}
+::-webkit-scrollbar-thumb {
+    background: #424754;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #8c909f;
+}
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 16px;
+}
+.glass-card {
+    background: rgba(26, 26, 26, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid #262626;
+}
+body {
+    min-height: max(884px, 100dvh);
+}

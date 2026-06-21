@@ -1,0 +1,12 @@
+# Core Backend Services
+flask
+flask-cors
+
+# Data Analysis & Financial Market Integrations
+pandas
+numpy
+yfinance
+
+# Generative AI Models & Configuration
+groq
+python-dotenv

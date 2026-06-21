@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Portfolio Analysis | Financial Risk Platform</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="/static/css/portfolio_analysis.css" rel="stylesheet"/>
+    <script src="/static/js/tailwind_config.js"></script>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary/30">
+    <!-- Sidebar Navigation -->
+    <aside class="h-full w-64 fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant flex flex-col py-lg gap-base z-50">
+        <div class="px-md mb-xl">
+            <h1 class="font-headline-sm text-headline-sm text-on-surface tracking-tight">AI-Powered Intelligence</h1>
+        </div>
+        <nav class="flex-1 flex flex-col gap-base px-sm">
+            <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-all duration-200 ease-in-out rounded-lg" href="/stock-analysis">
+                <span class="material-symbols-outlined">trending_up</span>
+                <span class="font-label-caps text-label-caps">Stock Analysis</span>
+            </a>
+            <a class="flex items-center gap-md px-md py-sm bg-secondary-container text-on-secondary-container rounded-lg transition-all duration-200 ease-in-out" href="/portfolio-analysis">
+                <span class="material-symbols-outlined">pie_chart</span>
+                <span class="font-label-caps text-label-caps">Portfolio Analysis</span>
+            </a>
+            <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-all duration-200 ease-in-out rounded-lg" href="/risk-dashboard">
+                <span class="material-symbols-outlined">security</span>
+                <span class="font-label-caps text-label-caps">Risk Dashboard</span>
+            </a>
+            <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-all duration-200 ease-in-out rounded-lg" href="/reports">
+                <span class="material-symbols-outlined">description</span>
+                <span class="font-label-caps text-label-caps">Reports</span>
+            </a>
+            <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-all duration-200 ease-in-out rounded-lg mt-auto" href="/settings-page">
+                <span class="material-symbols-outlined">settings</span>
+                <span class="font-label-caps text-label-caps">Settings</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="ml-64 min-h-screen flex flex-col">
+        <!-- Top App Bar -->
+        <header class="w-full top-0 sticky z-40 bg-surface-container border-b border-outline-variant flex items-center justify-between px-md h-16">
+            <div class="flex items-center gap-md">
+                <span class="material-symbols-outlined text-primary">analytics</span>
+                <h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight font-semibold">Financial Risk Platform</h2>
+            </div>
+            <div class="flex items-center gap-lg">
+                <div class="flex items-center bg-surface-container-low px-sm py-xs border border-outline-variant rounded">
+                    <span class="material-symbols-outlined text-on-surface-variant text-sm mr-xs">search</span>
+                    <input id="portfolio-query-input" class="bg-transparent border-none focus:ring-0 text-body-md w-48 text-on-surface uppercase font-data-mono outline-none" placeholder="AAPL,MSFT,NVDA" type="text" value="AAPL,MSFT,NVDA"/>
+                </div>
+                <button id="search-btn" class="material-symbols-outlined text-on-surface-variant hover:bg-surface-bright transition-colors p-xs rounded cursor-pointer active:opacity-80">search</button>
+            </div>
+        </header>
+
+        <!-- Canvas -->
+        <div class="p-lg max-w-[1440px] mx-auto w-full flex-1">
+            <!-- Header Section -->
+            <section class="mb-lg flex justify-between items-end">
+                <div>
+                    <h3 class="font-headline-xl text-headline-xl text-on-surface">Portfolio Analysis</h3>
+                    <p id="portfolio-subtitle" class="text-on-surface-variant font-body-md mt-xs">Institutional Overview: AAPL, MSFT, NVDA</p>
+                </div>
+                <div class="flex gap-sm">
+                    <button id="export-report-btn" class="bg-surface-container border border-outline-variant px-md h-8 text-on-surface font-label-caps text-label-caps flex items-center gap-sm hover:bg-surface-bright transition-colors">
+                        <span class="material-symbols-outlined text-[16px]">download</span> EXPORT REPORT
+                    </button>
+                    <button id="rebalance-btn" class="bg-primary text-on-primary px-md h-8 font-label-caps text-label-caps flex items-center gap-sm hover:opacity-90 transition-opacity">
+                        <span class="material-symbols-outlined text-[16px]">sync</span> REBALANCE
+                    </button>
+                </div>
+            </section>
+
+            <!-- Metrics Quick View -->
+            <section class="grid grid-cols-1 md:grid-cols-4 gap-md mb-lg">
+                <div class="bg-surface-container border border-outline-variant p-md">
+                    <p class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-xs">Portfolio Return (YTD)</p>
+                    <div class="flex items-baseline gap-sm">
+                        <span id="portfolio-return" class="font-data-mono text-headline-lg text-secondary">Loading...</span>
+                        <span id="portfolio-return-trend-icon" class="material-symbols-outlined text-secondary text-sm">trending_up</span>
+                    </div>
+                </div>
+                <div class="bg-surface-container border border-outline-variant p-md">
+                    <p class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-xs">Volatility (Annualized)</p>
+                    <div class="flex items-baseline gap-sm">
+                        <span id="portfolio-volatility" class="font-data-mono text-headline-lg text-on-surface">Loading...</span>
+                    </div>
+                </div>
+                <div class="bg-surface-container border border-outline-variant p-md">
+                    <p class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-xs">Risk Level</p>
+                    <div id="risk-level-text" class="font-data-mono text-sm text-tertiary">Loading...</div>
+                    <div class="flex flex-col gap-xs mt-xs">
+                        <div class="w-full h-1 bg-surface-variant rounded-full overflow-hidden">
+                            <div id="risk-level-bar" class="bg-tertiary h-full" style="width: 50%;"></div>
+                        </div>
+                        <div class="flex justify-between font-data-mono text-[10px] text-on-surface-variant">
+                            <span>CONSERVATIVE</span>
+                            <span class="text-tertiary">MODERATE</span>
+                            <span>AGGRESSIVE</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-surface-container border border-outline-variant p-md">
+                    <p class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-xs">Sharpe Ratio</p>
+                    <div class="flex items-baseline gap-sm">
+                        <span id="portfolio-sharpe" class="font-data-mono text-headline-lg text-primary">Loading...</span>
+                        <span class="material-symbols-outlined text-primary text-sm">info</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bento Grid Layout -->
+            <div class="bento-grid">
+                <!-- Asset Allocation Chart -->
+                <div class="col-span-12 lg:col-span-8 bg-surface-container border border-outline-variant p-md relative overflow-hidden h-[400px]">
+                    <div class="flex justify-between items-center mb-md">
+                        <h4 class="font-label-caps text-label-caps text-on-surface">ASSET ALLOCATION</h4>
+                        <div class="flex gap-base">
+                            <span class="px-sm py-xs bg-surface-bright text-[10px] font-data-mono border border-outline-variant">EQUITY</span>
+                            <span class="px-sm py-xs bg-surface-variant text-[10px] font-data-mono border border-outline-variant">TECH</span>
+                        </div>
+                    </div>
+                    <div class="flex h-full items-center justify-center">
+                        <div class="relative w-48 h-48 border-[16px] border-outline-variant rounded-full flex items-center justify-center shrink-0">
+                            <!-- Simulated multi-colored ring segments using rotating outlines -->
+                            <div class="absolute inset-0 border-[16px] border-primary rounded-full rotate-45" style="clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 80%);"></div>
+                            <div class="absolute inset-0 border-[16px] border-secondary rounded-full -rotate-45" style="clip-path: polygon(50% 50%, 100% 80%, 100% 100%, 20% 100%);"></div>
+                            <div class="absolute inset-0 border-[16px] border-tertiary rounded-full rotate-180" style="clip-path: polygon(50% 50%, 20% 100%, 0 100%, 0 0, 50% 0);"></div>
+                            <div class="text-center">
+                                <p class="font-data-mono text-headline-sm">$1.5M</p>
+                                <p class="text-[9px] text-on-surface-variant uppercase">TOTAL CAPITAL</p>
+                            </div>
+                        </div>
+                        <div id="allocation-list" class="ml-lg flex flex-col gap-sm flex-1 max-w-[280px]">
+                            <!-- Allocation items injected dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio AI Report Summary -->
+                <div class="col-span-12 lg:col-span-4 bg-surface-container border border-outline-variant p-md flex flex-col h-[400px]">
+                    <h4 class="font-label-caps text-label-caps text-on-surface mb-md flex items-center gap-sm flex-wrap justify-between">
+                        <span class="flex items-center gap-sm">
+                            <span class="material-symbols-outlined text-primary text-sm">bolt</span>
+                            AI INSIGHT REPORT
+                        </span>
+                        <span id="ai-service-badge" class="inline-flex items-center gap-xs px-sm py-[2px] rounded text-[10px] font-semibold bg-secondary/15 text-secondary border border-secondary/20">
+                            <span id="ai-service-dot" class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+                            <span id="ai-service-status-text">AI SERVICE ONLINE</span>
+                        </span>
+                    </h4>
+                    <div class="flex-1 overflow-y-auto space-y-md custom-scroll pr-xs">
+                        <div class="bg-surface-container-low p-sm border-l-2 border-primary">
+                            <p class="text-[10px] text-primary font-label-caps mb-xs uppercase">Investment Advisory</p>
+                            <p id="portfolio-report" class="text-xs leading-relaxed text-on-surface-variant whitespace-pre-line">
+                                Loading analysis from Report Agent...
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Risk Breakdown -->
+                <div class="col-span-12 lg:col-span-6 bg-surface-container border border-outline-variant p-md">
+                    <h4 class="font-label-caps text-label-caps text-on-surface mb-md">RISK BREAKDOWN (FACTOR ANALYSIS)</h4>
+                    <div class="space-y-sm">
+                        <div class="flex flex-col gap-xs">
+                            <div class="flex justify-between text-xs font-data-mono text-on-surface-variant">
+                                <span>MARKET EXPOSURE (BETA)</span>
+                                <span id="factor-beta">1.25</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-surface-variant rounded-full overflow-hidden">
+                                <div id="factor-beta-bar" class="bg-primary h-full" style="width: 65%;"></div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-xs">
+                            <div class="flex justify-between text-xs font-data-mono text-on-surface-variant">
+                                <span>SECTOR CONCENTRATION</span>
+                                <span id="factor-sector">HIGH RISK</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-surface-variant rounded-full overflow-hidden">
+                                <div id="factor-sector-bar" class="bg-tertiary h-full" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-xs">
+                            <div class="flex justify-between text-xs font-data-mono text-on-surface-variant">
+                                <span>LIQUIDITY COVERAGE</span>
+                                <span id="factor-liquidity">OPTIMAL (92/100)</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-surface-variant rounded-full overflow-hidden">
+                                <div id="factor-liquidity-bar" class="bg-secondary h-full" style="width: 92%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Diversification Summary -->
+                <div class="col-span-12 lg:col-span-6 bg-surface-container border border-outline-variant p-md">
+                    <h4 class="font-label-caps text-label-caps text-on-surface mb-md">DIVERSIFICATION SUMMARY</h4>
+                    <div class="grid grid-cols-2 gap-md">
+                        <div class="p-sm bg-surface-container-low border border-outline-variant text-center">
+                            <span id="summary-asset-count" class="block font-data-mono text-headline-sm text-on-surface">3 / 11</span>
+                            <span class="text-[10px] text-on-surface-variant uppercase">Assets in Portfolio</span>
+                        </div>
+                        <div class="p-sm bg-surface-container-low border border-outline-variant text-center">
+                            <span id="summary-correlation" class="block font-data-mono text-headline-sm text-secondary">Balanced</span>
+                            <span class="text-[10px] text-on-surface-variant uppercase">Correlation Status</span>
+                        </div>
+                        <div class="p-sm bg-surface-container-low border border-outline-variant text-center">
+                            <span class="block font-data-mono text-headline-sm text-on-surface">100%</span>
+                            <span class="text-[10px] text-on-surface-variant uppercase">Equity Exposure</span>
+                        </div>
+                        <div class="p-sm bg-surface-container-low border border-outline-variant text-center">
+                            <span id="summary-concentration-alert" class="block font-data-mono text-headline-sm text-error">Extreme</span>
+                            <span class="text-[10px] text-on-surface-variant uppercase">Concentration Status</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ticker Details Table -->
+            <section class="mt-lg">
+                <div class="bg-surface-container border border-outline-variant overflow-hidden">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-surface-container-high border-b border-outline-variant">
+                                <th class="px-md py-sm font-label-caps text-label-caps text-on-surface-variant">TICKER</th>
+                                <th class="px-md py-sm font-label-caps text-label-caps text-on-surface-variant">PRICE</th>
+                                <th class="px-md py-sm font-label-caps text-label-caps text-on-surface-variant">WEIGHT</th>
+                                <th class="px-md py-sm font-label-caps text-label-caps text-on-surface-variant">VALUE</th>
+                                <th class="px-md py-sm font-label-caps text-label-caps text-on-surface-variant">ANNUAL RETURN</th>
+                                <th class="px-md py-sm font-label-caps text-label-caps text-on-surface-variant">VOLATILITY</th>
+                                <th class="px-md py-sm font-label-caps text-label-caps text-on-surface-variant">SHARPE RATIO</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ticker-details-body" class="divide-y divide-outline-variant">
+                            <!-- Dynamic rows injected here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <!-- Atmospheric footer decoration -->
+        <footer class="mt-auto border-t border-outline-variant p-md bg-surface-container flex justify-between items-center text-[10px] text-on-surface-variant font-data-mono uppercase tracking-widest">
+            <div>Institutional Mode: Active | Server: US-EAST-01</div>
+            <div>© 2026 FINANCIAL RISK PLATFORM v2.4.1</div>
+        </footer>
+    </main>
+
+    <script src="/static/js/portfolio_analysis.js"></script>
+</body>
+</html>

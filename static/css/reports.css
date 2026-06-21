@@ -1,0 +1,42 @@
+body {
+    background-color: #0A0A0A;
+    color: #e5e2e1;
+    -webkit-font-smoothing: antialiased;
+}
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+}
+.report-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+}
+.terminal-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+}
+.divider {
+    height: 1px;
+    background-color: #262626;
+    margin: 24px 0;
+}
+.section-tag {
+    background-color: rgba(77, 142, 255, 0.1);
+    color: #adc6ff;
+    padding: 2px 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    border: 1px solid rgba(77, 142, 255, 0.2);
+}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #131313; }
+::-webkit-scrollbar-thumb { background: #262626; }
+::-webkit-scrollbar-thumb:hover { background: #353534; }
+body {
+    min-height: max(884px, 100dvh);
+}

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Settings | Financial Risk Platform</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Geist:wght@500;600;700&family=JetBrains+Mono:wght@400&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link href="/static/css/settings.css" rel="stylesheet"/>
+    <script src="/static/js/tailwind_config.js"></script>
+</head>
+<body class="flex overflow-hidden h-screen">
+    <!-- Navigation Drawer -->
+    <aside class="hidden md:flex flex-col h-screen py-lg gap-base bg-surface-container-low border-r border-outline-variant w-64 fixed left-0 top-0">
+        <div class="px-md mb-xl">
+            <h2 class="font-headline-sm text-headline-sm text-on-surface">AI-Powered Intelligence</h2>
+        </div>
+        <nav class="flex-1 px-sm space-y-1">
+            <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-all duration-200 rounded-lg group" href="/stock-analysis">
+                <span class="material-symbols-outlined">trending_up</span>
+                <span class="font-label-caps text-label-caps">Stock Analysis</span>
+            </a>
+            <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-all duration-200 rounded-lg group" href="/portfolio-analysis">
+                <span class="material-symbols-outlined">pie_chart</span>
+                <span class="font-label-caps text-label-caps">Portfolio Analysis</span>
+            </a>
+            <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-all duration-200 rounded-lg group" href="/risk-dashboard">
+                <span class="material-symbols-outlined">security</span>
+                <span class="font-label-caps text-label-caps">Risk Dashboard</span>
+            </a>
+            <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-all duration-200 rounded-lg group" href="/reports">
+                <span class="material-symbols-outlined">description</span>
+                <span class="font-label-caps text-label-caps">Reports</span>
+            </a>
+            <a class="flex items-center gap-md px-md py-sm bg-secondary-container text-on-secondary-container rounded-lg group" href="/settings-page">
+                <span class="material-symbols-outlined">settings</span>
+                <span class="font-label-caps text-label-caps">Settings</span>
+            </a>
+        </nav>
+        <div class="px-md mt-auto pt-lg border-t border-outline-variant">
+            <div class="flex items-center gap-sm">
+                <div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-semibold">JD</div>
+                <div>
+                    <p class="font-body-md text-body-md font-semibold">John Doe</p>
+                    <p class="text-xs text-on-surface-variant">Admin Access</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 md:ml-64 flex flex-col h-screen">
+        <!-- Top App Bar -->
+        <header class="w-full top-0 sticky bg-surface-container text-primary flex items-center justify-between px-md h-16 border-b border-outline-variant z-10 shrink-0">
+            <div class="flex items-center gap-sm">
+                <span class="material-symbols-outlined text-primary">analytics</span>
+                <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight font-semibold">Financial Risk Platform</h1>
+            </div>
+        </header>
+
+        <!-- Settings Canvas -->
+        <div class="flex-1 overflow-y-auto custom-scrollbar p-lg">
+            <div class="max-w-[1000px] mx-auto space-y-md">
+                <div class="mb-xl">
+                    <h2 class="font-headline-xl text-headline-xl text-on-surface mb-xs">Settings</h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant">Manage your institutional platform preferences and security parameters.</p>
+                </div>
+
+                <div class="grid grid-cols-1 gap-lg">
+                    <!-- Config Settings Section -->
+                    <section>
+                        <h3 class="font-label-caps text-label-caps text-on-surface-variant mb-md uppercase tracking-widest">Platform Default Configuration</h3>
+                        <div class="settings-card p-md space-y-md">
+                            <div>
+                                <label class="font-label-caps text-label-caps text-on-surface-variant block mb-sm">DEFAULT TICKERS (COMMA-SEPARATED)</label>
+                                <input id="config-tickers" type="text" class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-sm text-on-surface focus:border-primary focus:ring-0 transition-colors uppercase font-data-mono" value="AAPL, MSFT, NVDA" />
+                            </div>
+                            <div>
+                                <label class="font-label-caps text-label-caps text-on-surface-variant block mb-sm">ANALYSIS TIME PERIOD</label>
+                                <select id="config-period" class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-sm text-on-surface focus:border-primary focus:ring-0 transition-colors font-data-mono">
+                                    <option value="1y">1 Year (1y)</option>
+                                    <option value="2y">2 Years (2y)</option>
+                                    <option value="5y" selected>5 Years (5y)</option>
+                                    <option value="10y">10 Years (10y)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="font-label-caps text-label-caps text-on-surface-variant block mb-sm">AVAILABLE NAVIGABLE PAGES</label>
+                                <div id="config-pages" class="flex flex-wrap gap-xs pt-xs">
+                                    <!-- Pages tags loaded from API -->
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="h-px bg-outline-variant my-md"></div>
+
+                    <!-- Theme Preferences Section -->
+                    <section>
+                        <h3 class="font-label-caps text-label-caps text-on-surface-variant mb-md uppercase tracking-widest text-xs">Theme Preferences</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+                            <button id="theme-dark-btn" class="settings-card p-md flex flex-col gap-sm items-start text-left group border-2 border-primary">
+                                <span class="material-symbols-outlined text-primary" id="theme-dark-icon">dark_mode</span>
+                                <div class="w-full">
+                                    <p class="font-body-md text-body-md font-semibold text-on-surface">Institutional Dark</p>
+                                    <p class="text-xs text-on-surface-variant">Default high-contrast dark environment.</p>
+                                </div>
+                                <div class="mt-base px-sm py-xs bg-primary-container text-on-primary-container text-[10px] font-bold rounded" id="theme-dark-badge">ACTIVE</div>
+                            </button>
+                            <button id="theme-light-btn" class="settings-card p-md flex flex-col gap-sm items-start text-left group">
+                                <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" id="theme-light-icon">light_mode</span>
+                                <div class="w-full">
+                                    <p class="font-body-md text-body-md font-semibold text-on-surface">Institutional Light</p>
+                                    <p class="text-xs text-on-surface-variant">High-clarity light mode for daytime analysis.</p>
+                                </div>
+                            </button>
+                            <button id="theme-bloomberg-btn" class="settings-card p-md flex flex-col gap-sm items-start text-left group">
+                                <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" id="theme-bloomberg-icon">terminal</span>
+                                <div class="w-full">
+                                    <p class="font-body-md text-body-md font-semibold text-on-surface">Bloomberg Terminal</p>
+                                    <p class="text-xs text-on-surface-variant">Monospaced high-density data aesthetic.</p>
+                                </div>
+                            </button>
+                        </div>
+                    </section>
+
+                    <div class="h-px bg-outline-variant my-md"></div>
+
+                    <!-- API Settings Section -->
+                    <section>
+                        <div class="flex justify-between items-end mb-md">
+                            <div>
+                                <h3 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">API Settings</h3>
+                                <p class="text-xs text-on-surface-variant mt-xs">Manage programmatic access to risk models and market data.</p>
+                            </div>
+                            <button id="generate-key-btn" class="bg-primary text-on-primary font-label-caps text-label-caps px-md py-sm rounded-lg hover:opacity-90 transition-opacity">GENERATE KEY</button>
+                        </div>
+                        <div class="settings-card overflow-hidden">
+                            <table class="w-full border-collapse">
+                                <thead>
+                                    <tr class="bg-surface-container-high border-b border-outline-variant">
+                                        <th class="px-md py-sm text-left font-label-caps text-label-caps text-on-surface-variant">Key Name</th>
+                                        <th class="px-md py-sm text-left font-label-caps text-label-caps text-on-surface-variant">Status</th>
+                                        <th class="px-md py-sm text-left font-label-caps text-label-caps text-on-surface-variant">Last Used</th>
+                                        <th class="px-md py-sm text-right font-label-caps text-label-caps text-on-surface-variant">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-outline-variant" id="api-keys-body">
+                                    <tr class="hover:bg-surface-variant transition-colors group">
+                                        <td class="px-md py-sm">
+                                            <p class="font-data-mono text-data-mono text-on-surface">production-trading-v4</p>
+                                            <p class="text-[10px] text-on-surface-variant">Created Nov 12, 2023</p>
+                                        </td>
+                                        <td class="px-md py-sm">
+                                            <span class="inline-flex items-center gap-xs px-sm py-[2px] rounded-full bg-secondary-container/20 text-secondary text-[11px] font-semibold uppercase tracking-wider">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                                Active
+                                            </span>
+                                        </td>
+                                        <td class="px-md py-sm font-data-mono text-data-mono text-on-surface-variant">2024-05-20 14:32:01</td>
+                                        <td class="px-md py-sm text-right">
+                                            <button class="text-on-surface-variant hover:text-error transition-colors p-sm" onclick="this.closest('tr').remove();">
+                                                <span class="material-symbols-outlined text-[20px]">delete</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-surface-variant transition-colors group">
+                                        <td class="px-md py-sm">
+                                            <p class="font-data-mono text-data-mono text-on-surface">risk-engine-dev-01</p>
+                                            <p class="text-[10px] text-on-surface-variant">Created Jan 05, 2024</p>
+                                        </td>
+                                        <td class="px-md py-sm">
+                                            <span class="inline-flex items-center gap-xs px-sm py-[2px] rounded-full bg-surface-variant text-on-surface-variant text-[11px] font-semibold uppercase tracking-wider">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                                                Inactive
+                                            </span>
+                                        </td>
+                                        <td class="px-md py-sm font-data-mono text-data-mono text-on-surface-variant">Never</td>
+                                        <td class="px-md py-sm text-right">
+                                            <button class="text-on-surface-variant hover:text-error transition-colors p-sm" onclick="this.closest('tr').remove();">
+                                                <span class="material-symbols-outlined text-[20px]">delete</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <div class="h-px bg-outline-variant my-md"></div>
+
+                    <!-- User Preferences Section -->
+                    <section class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+                        <!-- Notifications -->
+                        <div>
+                            <h3 class="font-label-caps text-label-caps text-on-surface-variant mb-md uppercase tracking-widest text-xs">Notification Preferences</h3>
+                            <div class="settings-card p-md space-y-md">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="font-body-md text-body-md font-semibold text-on-surface text-sm">Risk Threshold Alerts</p>
+                                        <p class="text-xs text-on-surface-variant">Critical notifications when VaR exceeds limits.</p>
+                                    </div>
+                                    <div aria-checked="true" class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out bg-secondary focus:outline-none" role="switch">
+                                        <span class="translate-x-5 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="font-body-md text-body-md font-semibold text-on-surface text-sm">Daily Report Summary</p>
+                                        <p class="text-xs text-on-surface-variant">Receive automated PDF summaries at 08:00 UTC.</p>
+                                    </div>
+                                    <div aria-checked="true" class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out bg-secondary focus:outline-none" role="switch">
+                                        <span class="translate-x-5 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Language & Region -->
+                        <div>
+                            <h3 class="font-label-caps text-label-caps text-on-surface-variant mb-md uppercase tracking-widest text-xs">Regional Settings</h3>
+                            <div class="settings-card p-md space-y-md">
+                                <div>
+                                    <label class="font-label-caps text-label-caps text-on-surface-variant block mb-sm text-[10px]">DISPLAY LANGUAGE</label>
+                                    <select class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-sm text-on-surface focus:border-primary focus:ring-0 transition-colors text-xs">
+                                        <option>English (United Kingdom)</option>
+                                        <option>English (United States)</option>
+                                        <option>German (Deutsch)</option>
+                                        <option>Japanese (日本語)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="font-label-caps text-label-caps text-on-surface-variant block mb-sm text-[10px]">TIMEZONE</label>
+                                    <select class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-sm text-on-surface focus:border-primary focus:ring-0 transition-colors text-xs">
+                                        <option>(UTC+00:00) London</option>
+                                        <option>(UTC-05:00) New York</option>
+                                        <option>(UTC+09:00) Tokyo</option>
+                                        <option>(UTC+08:00) Singapore</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Footer Action -->
+                    <div class="flex justify-end gap-md py-xl">
+                        <button id="discard-changes-btn" class="px-lg py-sm border border-outline-variant text-on-surface font-label-caps text-label-caps rounded-lg hover:bg-surface-variant transition-all">DISCARD CHANGES</button>
+                        <button id="save-preferences-btn" class="px-lg py-sm bg-primary text-on-primary font-label-caps text-label-caps rounded-lg hover:opacity-90 transition-all shadow-lg shadow-primary/10">SAVE PREFERENCES</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/static/js/settings.js"></script>
+</body>
+</html>
