@@ -101,8 +101,8 @@ financial-risk-platform/
 
 ### Step 1: Clone and Navigate
 ```bash
-git clone https://github.com/your-username/financial-risk-platform.git
-cd financial-risk-platform
+git clone https://github.com/iishivanshu/AI-powered-Financial-Risk-Analysis-Platform.git
+cd AI-powered-Financial-Risk-Analysis-Platform
 ```
 
 ### Step 2: Install Dependencies
